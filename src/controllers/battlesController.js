@@ -1,7 +1,5 @@
 'use strict';
-const Joi = require('joi');
 const response = require('../lib/response');
-const enums = require('../utils/enums');
 
 const indexDao = require('../dao/indexDao');
 const battles = require('../models/battles');
@@ -176,6 +174,59 @@ class BattlesController {
             defenderSizeResult = defenderSizeResult[0];
             delete defenderSizeResult['_id'];
             resultObj['defender_size'] = defenderSizeResult;
+
+            let mostActiveAttackerKing = await indexDao.aggregate(battles, [{
+                $match: {
+                    'attacker_king': {
+                        $ne: ''
+                    }
+                }
+            }, {
+                $sortByCount: '$attacker_king'
+            }, {
+                $limit: 1
+            }]);
+            resultObj['most_active']['attacker_king'] = mostActiveAttackerKing[0]['_id'];
+
+            let mostActiveADefenderKing = await indexDao.aggregate(battles, [{
+                $match: {
+                    'defender_king': {
+                        $ne: ''
+                    }
+                }
+            }, {
+                $sortByCount: '$defender_king'
+            }, {
+                $limit: 1
+            }]);
+            resultObj['most_active']['defender_king'] = mostActiveADefenderKing[0]['_id'];
+
+            let mostActiveName = await indexDao.aggregate(battles, [{
+                $match: {
+                    'name': {
+                        $ne: ''
+                    }
+                }
+            }, {
+                $sortByCount: '$name'
+            }, {
+                $limit: 1
+            }]);
+
+            resultObj['most_active']['name'] = mostActiveName[0]['_id'];
+
+            let mostActiveRegion = await indexDao.aggregate(battles, [{
+                $match: {
+                    'region': {
+                        $ne: ''
+                    }
+                }
+            }, {
+                $sortByCount: '$region'
+            }, {
+                $limit: 1
+            }]);
+            resultObj['most_active']['region'] = mostActiveRegion[0]['_id'];
 
             return response.send(200, "SUCCESS", resultObj, req, res)
         } catch (error) {

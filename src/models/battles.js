@@ -1,7 +1,5 @@
 const modelName = 'battles';
 const mongoose = require('mongoose');
-const enums = require('../utils/enums');
-const dateTime = require('../utils/commons');
 
 let schema = new mongoose.Schema({
     name: {

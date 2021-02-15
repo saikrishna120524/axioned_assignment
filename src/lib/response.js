@@ -1,6 +1,5 @@
 'use strict';
 const languages = require('../languages/index');
-const commons = require('../utils/commons');
 
 class Response {
     /** Send success response
@@ -14,9 +13,7 @@ class Response {
         let message = languages.getText(req.get('Accept-Language'), textMessage);
         let result = {
             'status': code,
-            'message': message,
-            // 'timestamp': commons.currentTimestamp(),
-            // 'ts': new Date().getTime()
+            'message': message
         };
 
         if (data !== '') {
