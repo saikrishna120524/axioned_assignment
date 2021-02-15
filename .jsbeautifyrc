@@ -1,0 +1,5 @@
+{
+    "js": {
+        "operator_position": "preserve-newline"
+    }
+}

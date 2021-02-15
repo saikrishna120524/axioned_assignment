@@ -1,0 +1,227 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: halfwayApp API
+host: 'localhost:3005'
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+tags:
+- name: "Login FLow"
+  description: "login, registration, change paasword apis"
+- name: ""
+  description: ""
+- name: "Mobile Achievements"
+  description: ""
+  
+paths:
+
+  /v1/login:
+      post:
+        tags:
+          - Login FLow
+        summary: login
+        parameters:
+          - name: body
+            in: body
+            required: true
+            schema:
+              $ref: '#/definitions/loginPostBody'
+          - name: signature
+            in: header
+            description: generated signature
+            required: true
+            type: string
+            format: string
+          - name: nonce
+            in: header
+            description: nonce
+            required: true
+            type: string
+            format: string
+          - name: user_id
+            in: header
+            description: nonce
+            required: true
+            type: string
+            format: string
+        responses:
+          '200':
+            description: Activities saved.
+            schema:
+              $ref: '#/definitions/MessageResponse'
+          '400':
+            description: Failed to save activites.
+            schema:
+              $ref: '#/definitions/MessageResponse'
+          '401':
+            description: Authentication failure
+            schema:
+              $ref: '#/definitions/MessageResponse'
+  
+  /v1/register:
+      post:
+        tags:
+          - Login FLow
+        summary: register
+        parameters:
+          - name: body
+            in: body
+            required: true
+            schema:
+              $ref: '#/definitions/registerPostBody'
+          - name: signature
+            in: header
+            description: generated signature
+            required: true
+            type: string
+            format: string
+          - name: nonce
+            in: header
+            description: nonce
+            required: true
+            type: string
+            format: string
+        responses:
+          '200':
+            description: User registered.
+            schema:
+              $ref: '#/definitions/MessageResponse'
+          '400':
+            description: Failed to save activites.
+            schema:
+              $ref: '#/definitions/MessageResponse'
+          '401':
+            description: Authentication failure
+            schema:
+              $ref: '#/definitions/MessageResponse'            
+
+  /v1/mobile/achievements:
+      get:
+        tags:
+        - Mobile Achievements
+        summary: Get achievements. Is called from mobile.
+        description: Gets achievements list of a user
+        parameters:
+          - name: authorization
+            in: header
+            description: authorization token
+            required: true
+            type: string
+            format: string
+            default: Bearer
+          - name: app_version
+            in: header
+            description: application version
+            required: true
+            type: string
+            format: string
+          - name: os_version
+            in: header
+            description: os version
+            required: true
+            type: string
+            format: string
+          - name: os_type
+            in: header
+            description: device os type
+            required: true
+            type: string
+            format: string
+          - name: signature
+            in: header
+            description: generated signature
+            required: true
+            type: string
+            format: string
+          - name: nonce
+            in: header
+            description: nonce
+            required: true
+            type: string
+            format: string
+        responses:
+          '200':
+            description: ''
+            schema:
+              $ref: ''
+          '400':
+            description: Failed to get achievements.
+            schema:
+              $ref: ''
+          '401':
+            description: Authentication failure
+            schema:
+              $ref: '#/definitions/MessageResponse'
+
+
+
+definitions:
+  MessageResponse:
+    type: object
+    properties:
+      status:
+        type: number
+      message:
+        type: string
+      timestamp:
+        type: number
+      ts:
+        type: number
+
+  activities:
+    type: object
+    properties:
+      status:
+        type: number
+      message:
+        type: string
+      timestamp:
+        type: number
+      ts:
+        type: number
+      data:
+        type: array
+        items:
+          properties:
+            _id:
+              type: string
+            name:
+              type: string
+            key:
+              type: string
+              
+  loginPostBody:
+    type: object
+    properties:
+      attributes:
+        type: object
+        properties:
+          user_name:
+           type: string
+          password:
+            type: string
+  
+  registerPostBody:
+    type: object
+    properties:
+      attributes:
+        type: object
+        properties:
+          first_name:
+           type: string
+          last_name:
+            type: string          
+          date_of_birth:
+           type: string
+          user_name:
+            type: string          
+          password:
+           type: string
+          mobile_number:
+            type: string          
+          email:
+           type: string

@@ -1,0 +1,35 @@
+{
+  "name": "halfway-web-api",
+  "version": "1.0.0",
+  "description": "Halfway backend node api",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "test": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saikrishna120524/axioned_assignment.git"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "express",
+    "rest",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "Sai Krishna Chintham <saikrishnams97@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "cors": "2.8.5",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "mongoose": "5.11.15",
+    "nodemon": "2.0.7",
+    "swagger-jsdoc": "6.0.2",
+    "swagger-ui-express": "4.1.6"
+  },
+  "devDependencies": {}
+}
